@@ -1,13 +1,6 @@
 package ru.nsu.controllers;
 
 
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,14 +33,18 @@ public class AuthV1Controller {
 
     private final OperationAccountService operationAccountService;
 
+    private final IEmailService emailService;
+
     @Autowired
     public AuthV1Controller(
             OperationAccountService operationAccountService,
             RefreshTokenService refreshTokenService,
             OperationCodeService operationCodeService,
+            IEmailService emailService,
             AccountService accountService) {
         this.operationCodeService = operationCodeService;
         this.refreshTokenService = refreshTokenService;
+        this.emailService = emailService;
         this.operationAccountService = operationAccountService;
         this.accountService = accountService;
     }
@@ -160,6 +157,10 @@ public class AuthV1Controller {
         String userPhone = userAccount.getPhone();
         String userEmail = emailRequest.getEmail();
 
+        if (accountService.checkAccExistenceByEmail(userEmail)) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Такая почта уже зарегистрирована."));
+        }
+
         List<OperationPincode> previousUserCodeOperations = operationCodeService.findAllByOperationNameDirectionAndDateAfterLikeUserLogin(userPhone, 60, "Формирование пин-кода", "Смена почты");
         if (previousUserCodeOperations.size() >= 3) {
             return ResponseEntity.badRequest().body(new MessageResponse("Превышено количество смс для смены телефона в час."));
@@ -167,7 +168,9 @@ public class AuthV1Controller {
 
         String secretCode = accountService.generateRandomPassword();
 
-        System.out.println("NEW SECRET CODE FOR EMAIL " + userEmail + " CHANGE FOR " + userPhone + ":" + secretCode);
+        emailService.sendRegistrationMessage(userEmail, secretCode);
+
+        log.info("NEW SECRET CODE FOR EMAIL " + userEmail + " CHANGE FOR " + userPhone + ":" + secretCode);
 
         CodeOperationDirection operationDirection = operationCodeService.findOperationDirection("Смена почты");
         OperationCodeNames operationCodeName = operationCodeService.findOperationName("Формирование пин-кода");
@@ -201,7 +204,7 @@ public class AuthV1Controller {
             OperationCodeNames operationCodeName = operationCodeService.findOperationName("Пин-код не соответствует");
             operationCodeService.saveNewPinCodeOperation(userPhone + " " + newEmail, userCode, operationCodeName, operationDirection);
 
-            return ResponseEntity.badRequest().body(new MessageResponse("Ошибка введённых данных. Внимательно проверьте их еще раз для телефона " + userPhone + " и для почты " + newEmail));
+            return ResponseEntity.badRequest().body(new MessageResponse("Ошибка введённых данных. Внимательно проверьте их еще раз для телефона для почты " + newEmail));
         } else {
             Account accountByPhone = accountService.getAccountByPhone(userPhone);
             if (accountByPhone != null) {
@@ -214,6 +217,7 @@ public class AuthV1Controller {
 
                 operationAccountService.saveNewAccountOperation(accountByPhone, "Пользователь меняет свой почтовый ящик",
                         "Пользователь получил почтовый ящик " + newEmail);
+                emailService.sendConfirmationMessage(newEmail);
                 return ResponseEntity.ok(new DataResponse(true));
             } else {
                 return ResponseEntity.badRequest().body(new MessageResponse("Сначала отправьте запрос на получение пароля на почту"));
@@ -221,3 +225,4 @@ public class AuthV1Controller {
         }
     }
 }
+

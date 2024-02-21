@@ -1,9 +1,6 @@
 package ru.nsu.model.operations;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 import javax.persistence.*;
 import java.util.Date;
