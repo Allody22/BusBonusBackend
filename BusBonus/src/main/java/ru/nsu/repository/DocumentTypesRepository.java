@@ -3,7 +3,7 @@ package ru.nsu.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.nsu.model.DocumentTypes;
+import ru.nsu.model.constants.DocumentTypes;
 
 import javax.transaction.Transactional;
 import java.util.List;

@@ -1,6 +1,7 @@
-package ru.nsu.services;
+package ru.nsu.services.interfaces;
 
 import ru.nsu.model.GDS.*;
+import ru.nsu.model.constants.DocumentTypes;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -32,12 +33,20 @@ public interface IRaceService {
     DepotInfo getDepotInfo(@NotNull long depotId);
 
     /**
+     * Получение всех пунктов прибытия для РФ.
+     *
+     * @return - список пунктов отбытия
+     */
+    List<Point> getAllDispatchPoints();
+
+
+    /**
      * Получение списка пунктов отправления из определённого региона.
      *
      * @param regionId - айди региона
      * @return - список пунктов отбытия
      */
-    List<Point> getDispatchPoints(@NotNull long regionId);
+    List<Point> getDispatchPointsForRegion(@NotNull long regionId);
 
     /**
      * Получение списка пунктов прибытия из пункта отбытия.
@@ -51,8 +60,8 @@ public interface IRaceService {
      * Получение всех рейсов в определённый день из определённого пункта в другой определённый пункт.
      *
      * @param dispatchPointId - айди пункта отбытия
-     * @param arrivalPointId - айди пункта прибытия
-     * @param raceDate - интересующая дата
+     * @param arrivalPointId  - айди пункта прибытия
+     * @param raceDate        - интересующая пользователя дата
      * @return - список рейсов
      */
     List<Race> getRacesByPointAndDay(@NotNull Long dispatchPointId, @NotNull Long arrivalPointId, @NotNull LocalDate raceDate);
@@ -64,4 +73,44 @@ public interface IRaceService {
      * @return - сущность рейса
      */
     RaceFullInfo getRaceFullInfo(@NotNull String raceId);
+
+    /**
+     * Получение список остановки определённого рейса по айди этого рейса.
+     *
+     * @param raceId - айди рейса
+     * @return - список остановок рейса.
+     */
+    List<Stop> getRaceStops(@NotNull String raceId);
+
+    /**
+     * Получение информации о занятых/свободных местах на рейс.
+     *
+     * @param raceId - айди рейса
+     * @return - список информации о местах
+     */
+    List<Seat> getRaceSeats(@NotNull String raceId);
+
+    /**
+     * Получение информации о типах билетов, доступных на определённый рейс.
+     *
+     * @param raceId - айди рейса
+     * @return - список из с информации о каждом типе билета с ценой.
+     */
+    List<TicketType> getTicketTypes(@NotNull String raceId);
+
+    /**
+     * Получение информации о перевозчике, предоставляющим рейс.
+     *
+     * @param raceId - айди рейса
+     * @return - информация о перевозчике, включая ИНН, ФИО руководителя, адрес и сайт организация и тп.
+     */
+    Carrier getRaceCarrier(@NotNull String raceId);
+
+    /**
+     * Получение информации и типах документов, доступных на рейс.
+     *
+     * @param raceId - айди рейса
+     * @return - список документов, доступных документов с информации о их преимуществах, если они имеются.
+     */
+    List<DocumentTypes> getRaceAvailableDocuments(@NotNull String raceId);
 }

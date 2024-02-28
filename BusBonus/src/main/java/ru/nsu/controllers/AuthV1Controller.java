@@ -15,6 +15,7 @@ import ru.nsu.payload.response.BusBonusIDResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
 import ru.nsu.services.*;
+import ru.nsu.services.interfaces.IEmailService;
 
 import javax.validation.Valid;
 import java.util.List;

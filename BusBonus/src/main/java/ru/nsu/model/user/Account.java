@@ -1,28 +1,31 @@
 package ru.nsu.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.nsu.model.Achievements;
 import ru.nsu.model.Role;
 import ru.nsu.model.TripBBId;
 import ru.nsu.model.constants.EUserTypeStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "account")
 @ToString
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Account {
 
@@ -82,12 +85,19 @@ public class Account {
     @ToString.Exclude
     private final Set<Role> roles = new HashSet<>();
 
-    public Account() {
-        generateBusBonusId();
-    }
-
-    public void generateBusBonusId() {
-        this.busBonusId = UUID.randomUUID().toString();
+    public String generateBusBonusId() {
+        String DIGITS = "0123456789";
+        StringBuilder sb = new StringBuilder();
+        SecureRandom RANDOM = new SecureRandom();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                sb.append(DIGITS.charAt(RANDOM.nextInt(DIGITS.length())));
+            }
+            if (i < 4 - 1) {
+                sb.append('-');
+            }
+        }
+        return sb.toString();
     }
 
     public void addUserData(UserData userData) {

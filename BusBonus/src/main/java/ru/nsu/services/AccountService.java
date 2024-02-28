@@ -6,24 +6,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.exceptions.AccountNotFoundException;
 import ru.nsu.exceptions.NotInDataBaseException;
-import ru.nsu.model.DocumentTypes;
-import ru.nsu.model.Documents;
-import ru.nsu.model.Role;
-import ru.nsu.model.TicketCategories;
+import ru.nsu.model.*;
+import ru.nsu.model.constants.DocumentTypes;
 import ru.nsu.model.constants.ERole;
 import ru.nsu.model.constants.EUserTypeStatus;
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;
+import ru.nsu.payload.request.UserTicketByBBId;
 import ru.nsu.repository.DocumentTypesRepository;
 import ru.nsu.repository.TicketCategoriesRepository;
 import ru.nsu.repository.user.AccountRepository;
 import ru.nsu.repository.user.RoleRepository;
 import ru.nsu.repository.user.UserDataRepository;
+import ru.nsu.services.interfaces.IAccountService;
 
 import java.util.*;
 
 @Service
-public class AccountService {
+public class AccountService implements IAccountService {
 
     private final AccountRepository accountRepository;
 
@@ -76,11 +76,6 @@ public class AccountService {
         return false;
     }
 
-    public Account getAccountByBysBonus(String busBonusId) {
-        return accountRepository.getAccountByBusBonusId(busBonusId)
-                .orElse(null);
-    }
-
     public boolean checkAccExistenceByPhone(String phone) {
         return accountRepository.existsAccountByPhone(phone);
     }
@@ -104,6 +99,44 @@ public class AccountService {
         }
     }
 
+
+    @Transactional
+    public void saveNewUserTicketFromExternalSystem(Account account, UserTicketByBBId userTicketByBBId) {
+        TripBBId newUserTrip = new TripBBId();
+
+        Trip userTrip = new Trip();
+        userTrip.setCurrentRaceStatus(userTicketByBBId.getRaceStatus());
+        userTrip.setDispatchDate(userTicketByBBId.getDispatchDate());
+        userTrip.setArrivalDate(userTicketByBBId.getArrivalDate());
+        userTrip.setDispatchPoint(userTicketByBBId.getDispatchStation());
+        userTrip.setArrivalPoint(userTicketByBBId.getArrivalStation());
+        userTrip.setCarrierName(userTicketByBBId.getCarrier());
+        newUserTrip.setTrip(userTrip);
+
+        newUserTrip.setTicketSource(userTicketByBBId.getServiceInfo());
+        newUserTrip.setAccount(account);
+        if (userTicketByBBId.getPurchaseDate() == null) {
+            newUserTrip.setBookingTime(new Date());
+        } else {
+            newUserTrip.setBookingTime(userTicketByBBId.getPurchaseDate());
+        }
+        if (userTicketByBBId.getTicketStatus() == null) {
+            newUserTrip.setCurrentTicketStatus("Забронирован");
+        } else {
+            newUserTrip.setCurrentTicketStatus(userTicketByBBId.getTicketStatus());
+        }
+        newUserTrip.setTicketSeries(userTicketByBBId.getTicketSeries());
+        newUserTrip.setTicketNumber(userTicketByBBId.getTicketNum());
+        newUserTrip.setTicketCategory(userTicketByBBId.getTicketClass());
+        newUserTrip.setPrice(userTicketByBBId.getPrice());
+        newUserTrip.setDocumentType(userTicketByBBId.getDocumentType());
+        newUserTrip.setDocumentSeries(userTicketByBBId.getDocumentSeries());
+        newUserTrip.setDocumentNumber(userTicketByBBId.getDocumentNumber());
+
+        tripBBIdRepository.save(newUserTrip);
+
+        return;
+    }
 
     @Transactional
     public String updateUserDocumentByUserId(Long userDataId, String documentType, String documentNumber, String documentSeries,
@@ -227,22 +260,6 @@ public class AccountService {
             }
         }
         return false;
-    }
-
-    // Это проверка существования аккаунта и подтверждения. True - если акк есть и подтверждён, а иначе false
-    public boolean checkAccStatusAndExistence(String phone) {
-        Account account = getAccountByPhone(phone);
-        if (account != null) {
-            UserData potentialOwnerUserDataByPhone = account.getOwnerData();
-            if (potentialOwnerUserDataByPhone != null) {
-                if (account.getStatus() == EUserTypeStatus.NOT_ACTIVE) {
-                    return false;
-                } else if (account.getStatus() == EUserTypeStatus.ACTIVE) {
-                    return true;
-                }
-            }
-        }
-        return true;
     }
 
     @Transactional

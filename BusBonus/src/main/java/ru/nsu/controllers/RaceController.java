@@ -8,7 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import ru.nsu.services.IRaceService;
+import ru.nsu.services.interfaces.IRaceService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -47,12 +47,15 @@ public class RaceController {
         return ResponseEntity.ok(raceService.getDepotInfo(depotId));
     }
 
-    @GetMapping("/dispatch_points/{regionId}")
-    @Transactional
-    public ResponseEntity<?> getDispatchPoints(@Valid @NotNull @PathVariable Long regionId) {
-        return ResponseEntity.ok(raceService.getDispatchPoints(regionId));
+    @GetMapping("/all_dispatch_points")
+    public ResponseEntity<?> getRussianDispatchPoints() {
+        return ResponseEntity.ok(raceService.getAllDispatchPoints());
     }
 
+    @GetMapping("/dispatch_points/{regionId}")
+    public ResponseEntity<?> getDispatchPointsForRegion(@Valid @NotNull @PathVariable Long regionId) {
+        return ResponseEntity.ok(raceService.getDispatchPointsForRegion(regionId));
+    }
     @GetMapping("/arrival_points/{dispatchPointId}")
     @Transactional
     public ResponseEntity<?> getArrivalPoint(@Valid @NotNull @PathVariable Long dispatchPointId) {

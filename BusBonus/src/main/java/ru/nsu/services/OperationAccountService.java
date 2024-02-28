@@ -10,7 +10,6 @@ import ru.nsu.model.operations.OperationAccount;
 import ru.nsu.model.user.Account;
 import ru.nsu.repository.operation.MethodListRepository;
 import ru.nsu.repository.operation.OperationAccountRepository;
-import ru.nsu.repository.user.AccountRepository;
 
 import java.util.Date;
 
@@ -18,16 +17,13 @@ import java.util.Date;
 @Slf4j
 public class OperationAccountService {
 
-    private final AccountRepository accountRepository;
-
     private final MethodListRepository methodListRepository;
 
     private final OperationAccountRepository operationAccountRepository;
 
     @Autowired
-    public OperationAccountService(AccountRepository accountRepository, MethodListRepository methodListRepository,
+    public OperationAccountService(MethodListRepository methodListRepository,
                                    OperationAccountRepository operationAccountRepository) {
-        this.accountRepository = accountRepository;
         this.operationAccountRepository = operationAccountRepository;
         this.methodListRepository = methodListRepository;
     }

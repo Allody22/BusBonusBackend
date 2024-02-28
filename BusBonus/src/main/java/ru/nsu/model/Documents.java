@@ -2,12 +2,13 @@ package ru.nsu.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import ru.nsu.model.constants.DocumentTypes;
 import ru.nsu.model.user.UserData;
 
+import javax.persistence.*;
 import java.util.Date;
 
 

@@ -1,9 +1,10 @@
-package ru.nsu.model;
+package ru.nsu.model.constants;
 
-import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 
 @Entity
@@ -19,4 +20,7 @@ public class DocumentTypes {
 
     @Column(name = "type")
     private String type;
+
+    @Column(name = "code")
+    private int code;
 }

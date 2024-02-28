@@ -2,13 +2,12 @@ package ru.nsu.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import ru.nsu.model.constants.ETripStatuses;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,15 +22,26 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "bus_driver")
-    private String busDriver;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "current_status")
-    private ETripStatuses currentStatus;
+    private String currentRaceStatus;
+
+    @Column(name = "dispatch_point")
+    private String dispatchPoint;
+
+    @Column(name = "arrival_point")
+    private String arrivalPoint;
+
+    @Column(name = "dispatch_date")
+    private String dispatchDate;
+
+    @Column(name = "arrival_date")
+    private String arrivalDate;
+
+    @Column(name = "carrier_name")
+    private String carrierName;
 
     @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
-    private final List<TripBBId> tripUsers = new ArrayList<>();
+    private List<TripBBId> tripUsers = new ArrayList<>();
 }
