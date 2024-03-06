@@ -1,5 +1,9 @@
 package ru.nsu.services.interfaces;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
+import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;
 import ru.nsu.payload.request.UserTicketByBBId;
@@ -143,10 +147,18 @@ public interface IAccountService {
 
     /**
      * Сохранение нового билета пользователя, привязанного к BBId и данным, пришедшим вместе с билетом.
+     * Появление нового билета в аккаунте означает изменение в аккаунте (ведь появился новый билет)
+     * и изменения в рейсах, ведь в каком-то рейсе наш аккаунт занял места
      *
      * @param account - аккаунт пользователя.
      * @param userTicketByBBId - информация о билете и поездке.
      */
+    @Transactional
+    @Caching(evict = {
+            @CacheEvict(value = "allAccountTrips", key = "#account.id", beforeInvocation = false),
+            @CacheEvict(value = "allRacesInADayFromPointToPoint", allEntries = true, beforeInvocation = false),
+            @CacheEvict(value = "raceInfo", key = "#userTicketByBBId.raceUid", beforeInvocation = false)
+    })
     void saveNewUserTicketFromExternalSystem(Account account, UserTicketByBBId userTicketByBBId);
 
     /**
@@ -156,5 +168,6 @@ public interface IAccountService {
      * @param accountId - айди аккаунта
      * @return - список всех билетов с информацией о соответствующих им поездках.
      */
+    @Cacheable(value = "allAccountRaces", key = "#accountId")
     List<AccountTripsResponse> getUserTripsForResponseById(Long accountId);
 }

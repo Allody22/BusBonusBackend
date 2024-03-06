@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами">
+    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/TripBBId.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/TripBBId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/resources/db/migration/V3__insert_document_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/resources/db/migration/V3__insert_document_types.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IRaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IRaceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,33 +45,34 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Maven.Clean package.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Dom/Desktop/BusBonus-git/BusBonus/src/main/resources&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Maven.Clean package.executor": "Run",
+    "Maven.Unnamed.executor": "Run",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Dom/Desktop/BusBonus-git/BusBonus/src/main/java/ru/nsu/configuration",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\configuration" />
       <recent name="C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\resources" />
       <recent name="C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model" />
       <recent name="C:\Users\Dom\Desktop\BusBonus-git" />
@@ -186,7 +187,7 @@
       <workItem from="1709107305238" duration="2177000" />
       <workItem from="1709111231437" duration="2557000" />
       <workItem from="1709125057957" duration="1243000" />
-      <workItem from="1709721523839" duration="1028000" />
+      <workItem from="1709721523839" duration="2191000" />
     </task>
     <task id="LOCAL-00001" summary="Версия на начало января БЕЗ апи смс сервиса и апи почтовой рассылки">
       <option name="closed" value="true" />
@@ -220,7 +221,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709128647382</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt">
+      <option name="closed" value="true" />
+      <created>1709722636355</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1709722636355</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +240,7 @@
     <MESSAGE value="Инфа о коммитах" />
     <MESSAGE value="Версия с почтой и частью запросов к ГДС" />
     <MESSAGE value="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами" />
+    <MESSAGE value="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt" />
   </component>
 </project>

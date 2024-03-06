@@ -1,5 +1,5 @@
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Order.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Military_Ticket.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\constants\DocumentTypes.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Sale.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\user\UserDataRepository.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\RaceStatus.java
@@ -8,11 +8,10 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\RefreshTokenRepository.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\ERaceStatus.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\operations\OperationPincode.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\IEmailService.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\interfaces\IAccountService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\user\Account.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\AccountInfoResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\operation\MethodListRepository.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\IRaceService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\operations\MethodList.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\JwtAuthResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\configuration\security\jwt\AuthTokenFilter.java
@@ -21,15 +20,16 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\TripBBId.j
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\PasswordConfirmRequest.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\RefreshToken.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\controllers\AccountController.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\UserTicketByBBId.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\UpdateOwnerDataRequest.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\Trip.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\BusBonusIDResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\TicketType.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\TokenRefreshRequest.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\user\RoleRepository.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\AccountTripsResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\operation\OperationPinCodeRepository.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\AccountService.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Foreign_Passport_Of_Russian_Federation.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\BusBonusIdRequest.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\OperationAccountService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\exceptions\TokenRefreshException.java
@@ -40,7 +40,6 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\user\
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\DepotInfo.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\EOrderStatus.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\LoginAndSecretCodeRequest.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Foreign_Passport.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Company.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Region.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\configuration\RestConfig.java
@@ -55,7 +54,6 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\constants\ETripStatuses.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\ETicketClass.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\SmsMessage.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Birth_Certificate_Foreign.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\SmsResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\RaceClass.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\ETicketStatus.java
@@ -67,6 +65,7 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\ESaleM
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\DocType.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\exceptions\NotInDataBaseException.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\UserDataResponse.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\interfaces\IEmailService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\Role.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\constants\EUserTypeStatus.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\constants\ETypeName.java
@@ -78,7 +77,6 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\TokenRefreshResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\RaceSummary.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\OperationCodeService.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Russian_Passport.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\ERaceClass.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\request\LoginRequest.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\MessageResponse.java
@@ -89,12 +87,12 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\constants\
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\DocumentsTypesResponse.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\controllers\SiteV1Controller.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\DocumentTypesRepository.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\controllers\BusBonusController.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\controllers\AuthController.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\RaceFullInfo.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\configuration\SwaggerConfig.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\UserDetailsImpl.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\BusBonusApplication.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\documents\Birth_Certificate_Russian_Federation.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Country.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\UserDataService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\exceptions\AccountNotActiveAndAlreadyExistException.java
@@ -104,7 +102,6 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\UserDet
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\exceptions\AccountActiveAndAlreadyExistException.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\user\UserData.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\RefreshTokenService.java
-C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\DocumentTypes.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\configuration\security\jwt\JwtUtils.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\advices\TokenControllerAdvice.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\payload\response\TicketCategoriesResponse.java
@@ -123,4 +120,5 @@ C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Race.j
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\advices\FieldValidationAdvice.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\operations\OperationCodeNames.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\model\GDS\Stop.java
+C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\services\interfaces\IRaceService.java
 C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu\repository\operation\CodeOperationNamesRepository.java
