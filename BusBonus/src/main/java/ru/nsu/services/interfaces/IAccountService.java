@@ -2,6 +2,8 @@ package ru.nsu.services.interfaces;
 
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;
+import ru.nsu.payload.request.UserTicketByBBId;
+import ru.nsu.payload.response.AccountTripsResponse;
 
 import java.util.Date;
 import java.util.List;
@@ -130,4 +132,29 @@ public interface IAccountService {
      * @return - сама сущность нового аккаунта
      */
     Account createNewAccountFromSite(String phone, String password);
+
+    /**
+     * Получение сущности аккаунта по его BBId.
+     *
+     * @param busBonusId - уникальное бас бонус айди аккаунта.
+     * @return - сущность аккаунта
+     */
+    Account getAccountByBBId(String busBonusId);
+
+    /**
+     * Сохранение нового билета пользователя, привязанного к BBId и данным, пришедшим вместе с билетом.
+     *
+     * @param account - аккаунт пользователя.
+     * @param userTicketByBBId - информация о билете и поездке.
+     */
+    void saveNewUserTicketFromExternalSystem(Account account, UserTicketByBBId userTicketByBBId);
+
+    /**
+     * Получение всех поездок пользователя в удобном для json ответа виде.
+     * Данные кэшируются на 30 минут.
+     *
+     * @param accountId - айди аккаунта
+     * @return - список всех билетов с информацией о соответствующих им поездках.
+     */
+    List<AccountTripsResponse> getUserTripsForResponseById(Long accountId);
 }

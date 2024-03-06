@@ -6,29 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AccountController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthV1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthV1Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/RaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/RaceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/DocumentTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/constants/DocumentTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Documents.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Documents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Trip.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/TripBBId.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/TripBBId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Birth_Certificate_Foreign.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Birth_Certificate_Russian_Federation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Foreign_Passport.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Foreign_Passport_Of_Russian_Federation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Military_Ticket.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/documents/Russian_Passport.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/UserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/repository/DocumentTypesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/repository/DocumentTypesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/IEmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IEmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/IRaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IRaceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/OperationAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/OperationAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/UserDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/UserDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/resources/db/migration/V3__insert_document_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/resources/db/migration/V3__insert_document_types.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,12 +80,39 @@
       <recent name="C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.nsu.payload.response" />
       <recent name="ru.nsu.payload.request" />
       <recent name="ru.nsu.controllers" />
       <recent name="ru.nsu.services" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.Clean package">
+    <configuration default="true" type="Babashka" factoryName="BabashkaLocalRepl" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="bbPath" value="" />
+      <setting name="parameters" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <setting name="workingDir" value="" />
+      <setting name="focusEditor" value="false" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Local" activateToolWindowBeforeRun="false">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false">
+      <setting name="displayName" value="" />
+      <setting name="host" value="" />
+      <setting name="port" value="0" />
+      <setting name="replType" value="SOCKET" />
+      <setting name="configType" value="SPECIFY" />
+      <setting name="replPortFileType" value="STANDARD" />
+      <setting name="customPortFile" value="" />
+      <setting name="fixLineNumbers" value="false" />
+      <setting name="focusEditor" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -176,7 +185,8 @@
       <workItem from="1708568959936" duration="6000" />
       <workItem from="1709107305238" duration="2177000" />
       <workItem from="1709111231437" duration="2557000" />
-      <workItem from="1709125057957" duration="595000" />
+      <workItem from="1709125057957" duration="1243000" />
+      <workItem from="1709721523839" duration="1028000" />
     </task>
     <task id="LOCAL-00001" summary="Версия на начало января БЕЗ апи смс сервиса и апи почтовой рассылки">
       <option name="closed" value="true" />
@@ -202,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708510785051</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами">
+      <option name="closed" value="true" />
+      <created>1709128647382</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1709128647382</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +230,7 @@
     <MESSAGE value="Версия на начало января БЕЗ апи смс сервиса и апи почтовой рассылки" />
     <MESSAGE value="Инфа о коммитах" />
     <MESSAGE value="Версия с почтой и частью запросов к ГДС" />
-    <option name="LAST_COMMIT_MESSAGE" value="Версия с почтой и частью запросов к ГДС" />
+    <MESSAGE value="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами" />
   </component>
 </project>

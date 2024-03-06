@@ -51,6 +51,12 @@ public class AccountController {
         this.accountService = accountService;
     }
 
+    @GetMapping("/get_account_races")
+    @Transactional
+    public ResponseEntity<?> getAccountRacesByJwt() {
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(accountService.getUserTripsForResponseById(userDetails.getId()));
+    }
 
     @GetMapping("/get_account")
     @Transactional
