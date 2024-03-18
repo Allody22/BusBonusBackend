@@ -1,8 +1,9 @@
-package ru.nsu.model;
+package ru.nsu.model.races;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import ru.nsu.model.races.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,31 +24,13 @@ public class Trip {
     @Column(name = "current_status")
     private String currentRaceStatus;
 
-//    @Column(name = "dispatch_final_point")
-//    private String dispatchFinalPoint;
-//
-//    @Column(name = "arrival_final_point")
-//    private String arrivalFinalPoint;
-//
-//    @Column(name = "arrival_final_address")
-//    private String arrivalFinalAddress;
-//
-//    @Column(name = "dispatch_final_address")
-//    private String dispatchFinalAddress;
+    @Column(name = "race_name")
+    private String raceName;
 
-//    @Column(name = "dispatch_final_date")
-//    private String dispatchFinalDate;
-//
-//    @Column(name = "arrival_final_date")
-//    private String arrivalFinalDate;
+    @Column(name = "race_number")
+    private String raceNumber;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "num")
-    private String num;
-
-    @Column(name = "uid")
+    @Column(name = "uid", unique = true)
     private String uid;
 
     @Column(name = "bus_info")
@@ -62,5 +45,5 @@ public class Trip {
     @OneToMany(mappedBy = "trip", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     @JsonIgnore
-    private List<TripBBId> tripUsers = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
 }

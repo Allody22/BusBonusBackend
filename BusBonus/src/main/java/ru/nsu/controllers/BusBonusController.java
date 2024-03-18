@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.model.user.Account;
+import ru.nsu.payload.request.NewTicketsRequest;
 import ru.nsu.payload.request.UserTicketByBBId;
+import ru.nsu.payload.response.AccountOrdersByStatusesResponse;
 import ru.nsu.payload.response.AccountTripsResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
@@ -53,17 +55,14 @@ public class BusBonusController {
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @PostMapping("/tickets/new")
     @Transactional
-    public ResponseEntity<?> saveSeveralTickets(@Valid @RequestBody List<UserTicketByBBId> userTicketsByBBId) {
-        if(userTicketsByBBId.size()>10){
+    public ResponseEntity<?> saveSeveralTickets(@Valid @RequestBody NewTicketsRequest newTicketsRequest) {
+        if (newTicketsRequest.getUserTicketByBBIdList().size() > 10) {
             return ResponseEntity.badRequest().body(new MessageResponse("За раз нельзя отправлять больше 10 билетов. Пожалуйста, учитывайте это."));
         }
-        for (var userTicketByBBId: userTicketsByBBId) {
-            Account accountByBBId = accountService.getAccountByBBId(userTicketByBBId.getBusBonusId());
-            accountService.saveNewUserTicketFromExternalSystem(accountByBBId, userTicketByBBId);
-        }
+        Account account = accountService.getAccountByBBId(newTicketsRequest.getBusBonusId());
+        accountService.saveNewUserTicketsFromExternalSystem(account, newTicketsRequest);
         return ResponseEntity.ok(new DataResponse(true));
     }
-
     @Operation(
             summary = "Получение поездок пользователя по BusBonusId",
             description = "Получаем информацию о поездках пользователя. " +
@@ -72,12 +71,12 @@ public class BusBonusController {
             tags = {"races", "account"})
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Список рейсов аккаунта",
-                    content = {@Content(schema = @Schema(implementation = AccountTripsResponse[].class), mediaType = "application/json")}),
+                    content = {@Content(schema = @Schema(implementation = AccountOrdersByStatusesResponse.class), mediaType = "application/json")}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
     @GetMapping("/get_account_races_by_busbonus_id/{busBonusId}")
     @Transactional
     public ResponseEntity<?> getAccountRacesByBusBonusId(@PathVariable("busBonusId") String busBonusId) {
         Account account = accountService.getAccountByBBId(busBonusId);
-        return ResponseEntity.ok(accountService.getUserTripsForResponseById(account.getId()));
+        return ResponseEntity.ok(accountService.getUserOrdersForResponseById(account.getId()));
     }
 }

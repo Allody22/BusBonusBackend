@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt">
+    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Удаление и сохранение кэша с помощью Redis и Spring аннотаций">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IRaceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/interfaces/IRaceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +182,7 @@
       <workItem from="1709107305238" duration="2177000" />
       <workItem from="1709111231437" duration="2557000" />
       <workItem from="1709125057957" duration="1243000" />
-      <workItem from="1709721523839" duration="2191000" />
+      <workItem from="1709721523839" duration="2644000" />
     </task>
     <task id="LOCAL-00001" summary="Версия на начало января БЕЗ апи смс сервиса и апи почтовой рассылки">
       <option name="closed" value="true" />
@@ -229,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709722636355</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="1) Удаление и сохранение кэша с помощью Redis и Spring аннотаций">
+      <option name="closed" value="true" />
+      <created>1709724135668</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1709724135668</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +244,7 @@
     <MESSAGE value="Версия с почтой и частью запросов к ГДС" />
     <MESSAGE value="1) Чуть больше запросов к гдс для получения более конкретной информации о рейсах и улучшения кэширования&#10;2) Чуть больше интерфейсов для сервисов с комментариями&#10;3) Теперь в аккаунте пользователя может появится билет с помощью запроса /api/v1/bus_bonus/new/ticket&#10;4) Документы идут с соответствующими им кодами" />
     <MESSAGE value="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt" />
-    <option name="LAST_COMMIT_MESSAGE" value="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt" />
+    <MESSAGE value="1) Удаление и сохранение кэша с помощью Redis и Spring аннотаций" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Удаление и сохранение кэша с помощью Redis и Spring аннотаций" />
   </component>
 </project>

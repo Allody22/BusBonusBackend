@@ -7,7 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.model.Documents;
-import ru.nsu.model.TicketCategories;
+import ru.nsu.model.constants.TicketCategories;
 import ru.nsu.model.constants.DocumentTypes;
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;

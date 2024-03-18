@@ -6,7 +6,9 @@ import org.springframework.cache.annotation.Caching;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;
+import ru.nsu.payload.request.NewTicketsRequest;
 import ru.nsu.payload.request.UserTicketByBBId;
+import ru.nsu.payload.response.AccountOrdersByStatusesResponse;
 import ru.nsu.payload.response.AccountTripsResponse;
 
 import java.util.Date;
@@ -27,6 +29,25 @@ public interface IAccountService {
      * @return - список из категорий.
      */
     List<String> getAllTicketCategories();
+
+    /**
+     * Сохранение нового заказа (order) пользователя со всей информацией.
+     * Создаётся набор билетов, привязанный к заказу и поездка привязанная к заказу.
+     *
+     * @param account - передаётся аккаунт пользователя. Он необходим, чтобы удалить кэш его поездок по его айди.
+     * @param newTicketsRequest - класс со всей информацией о заказе
+     */
+    void saveNewUserTicketsFromExternalSystem(Account account, NewTicketsRequest newTicketsRequest);
+
+    /**
+     * Получение всех поездок пользователя в удобном для json ответа виде.
+     * Данные кэшируются на 30 минут.
+     *
+     * @param accountId - айди аккаунта
+     * @return - список всех заказов с информацией чеках и билетах внутри этих заказах.
+     */
+    AccountOrdersByStatusesResponse getUserOrdersForResponseById(Long accountId);
+
 
     /**
      * Смена пароля у аккаунта через смс.
@@ -53,6 +74,14 @@ public interface IAccountService {
      * @return - true, если аккаунт существует, а иначе false.
      */
     boolean checkAccExistenceByPhone(String phone);
+
+    /**
+     * Проверка существования аккаунта по почте.
+     *
+     * @param email - интересующая нас почта.
+     * @return - true, если аккаунт существует, а иначе false.
+     */
+    boolean checkAccExistenceByEmail(String email);
 
     /**
      * Получение аккаунта по номеру телефона.

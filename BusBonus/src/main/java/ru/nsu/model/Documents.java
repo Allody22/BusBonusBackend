@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.nsu.model.constants.DocumentTypes;
+import ru.nsu.model.constants.TicketCategories;
 import ru.nsu.model.user.UserData;
 
 import javax.persistence.*;

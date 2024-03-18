@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.nsu.model.Achievements;
 import ru.nsu.model.Role;
-import ru.nsu.model.TripBBId;
+import ru.nsu.model.races.TripBBId;
 import ru.nsu.model.constants.EUserTypeStatus;
 
 import javax.persistence.*;

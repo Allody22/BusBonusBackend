@@ -1,4 +1,4 @@
-package ru.nsu.model;
+package ru.nsu.model.constants;
 
 import lombok.Data;
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.nsu.exceptions.NotInDataBaseException;
 import ru.nsu.model.Documents;
-import ru.nsu.model.TicketCategories;
+import ru.nsu.model.constants.TicketCategories;
 import ru.nsu.model.constants.DocumentTypes;
 import ru.nsu.model.constants.EUserTypeStatus;
 import ru.nsu.model.user.Account;
