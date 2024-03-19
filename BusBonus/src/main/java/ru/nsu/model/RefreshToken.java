@@ -1,6 +1,5 @@
 package ru.nsu.model;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +7,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import ru.nsu.model.user.Account;
 
+import javax.persistence.*;
 import java.time.Instant;
 
 @Entity

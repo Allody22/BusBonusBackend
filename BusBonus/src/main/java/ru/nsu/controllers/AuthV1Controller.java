@@ -1,7 +1,7 @@
 package ru.nsu.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +14,12 @@ import ru.nsu.payload.request.*;
 import ru.nsu.payload.response.BusBonusIDResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
-import ru.nsu.services.*;
+import ru.nsu.services.RefreshTokenService;
+import ru.nsu.services.UserDetailsImpl;
+import ru.nsu.services.interfaces.IAccountService;
 import ru.nsu.services.interfaces.IEmailService;
+import ru.nsu.services.interfaces.IOperationAccountService;
+import ru.nsu.services.interfaces.IOperationCodeService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -23,32 +27,19 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/auth")
 public class AuthV1Controller {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
 
     private final RefreshTokenService refreshTokenService;
 
-    private final OperationCodeService operationCodeService;
+    private final IOperationCodeService operationCodeService;
 
-    private final OperationAccountService operationAccountService;
+    private final IOperationAccountService operationAccountService;
 
     private final IEmailService emailService;
-
-    @Autowired
-    public AuthV1Controller(
-            OperationAccountService operationAccountService,
-            RefreshTokenService refreshTokenService,
-            OperationCodeService operationCodeService,
-            IEmailService emailService,
-            AccountService accountService) {
-        this.operationCodeService = operationCodeService;
-        this.refreshTokenService = refreshTokenService;
-        this.emailService = emailService;
-        this.operationAccountService = operationAccountService;
-        this.accountService = accountService;
-    }
 
 
     @PostMapping("/logout")

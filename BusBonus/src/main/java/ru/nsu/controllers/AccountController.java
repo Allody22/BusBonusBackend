@@ -1,14 +1,14 @@
 package ru.nsu.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.model.Documents;
-import ru.nsu.model.constants.TicketCategories;
 import ru.nsu.model.constants.DocumentTypes;
+import ru.nsu.model.constants.TicketCategories;
 import ru.nsu.model.user.Account;
 import ru.nsu.model.user.UserData;
 import ru.nsu.payload.request.AddCompanionRequest;
@@ -19,10 +19,10 @@ import ru.nsu.payload.response.AccountInfoResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
 import ru.nsu.payload.response.UserDataResponse;
-import ru.nsu.services.AccountService;
-import ru.nsu.services.OperationAccountService;
 import ru.nsu.services.UserDataService;
 import ru.nsu.services.UserDetailsImpl;
+import ru.nsu.services.interfaces.IAccountService;
+import ru.nsu.services.interfaces.IOperationAccountService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -32,24 +32,15 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/user")
 public class AccountController {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
 
-    private final OperationAccountService operationAccountService;
+    private final IOperationAccountService operationAccountService;
 
     private final UserDataService userDataService;
-
-    @Autowired
-    public AccountController(
-            OperationAccountService operationAccountService,
-            UserDataService userDataService,
-            AccountService accountService) {
-        this.userDataService = userDataService;
-        this.operationAccountService = operationAccountService;
-        this.accountService = accountService;
-    }
 
     @GetMapping("/get_account_races")
     @Transactional

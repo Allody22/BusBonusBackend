@@ -1,13 +1,12 @@
 package ru.nsu.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -15,27 +14,21 @@ import ru.nsu.model.user.Account;
 import ru.nsu.payload.request.NewTicketsRequest;
 import ru.nsu.payload.request.UserTicketByBBId;
 import ru.nsu.payload.response.AccountOrdersByStatusesResponse;
-import ru.nsu.payload.response.AccountTripsResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
-import ru.nsu.services.AccountService;
 import ru.nsu.services.interfaces.IAccountService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Slf4j
+@AllArgsConstructor
 @RequestMapping("/api/v1/bus_bonus")
 public class BusBonusController {
 
     private final IAccountService accountService;
 
-    @Autowired
-    public BusBonusController(IAccountService accountService) {
-        this.accountService = accountService;
-    }
 
     @PostMapping("/ticket/new")
     @Transactional

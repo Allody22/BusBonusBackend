@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import ru.nsu.model.Achievements;
 import ru.nsu.model.Role;
-import ru.nsu.model.races.TripBBId;
 import ru.nsu.model.constants.EUserTypeStatus;
+import ru.nsu.model.races.TripBBId;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

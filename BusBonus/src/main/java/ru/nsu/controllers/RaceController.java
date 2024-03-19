@@ -2,8 +2,8 @@ package ru.nsu.controllers;
 
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,15 +18,11 @@ import java.time.LocalDate;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Slf4j
+@AllArgsConstructor
 @RequestMapping("/api/v1/")
 public class RaceController {
 
     private IRaceService raceService;
-
-    @Autowired
-    public RaceController(IRaceService raceService) {
-        this.raceService = raceService;
-    }
 
     @GetMapping("/countries")
     @Transactional

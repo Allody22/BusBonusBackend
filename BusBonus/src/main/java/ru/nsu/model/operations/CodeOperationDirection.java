@@ -1,9 +1,10 @@
 package ru.nsu.model.operations;
 
-import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import javax.persistence.*;
 
 
 @Entity

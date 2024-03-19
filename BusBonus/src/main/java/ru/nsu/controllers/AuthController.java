@@ -1,7 +1,7 @@
 package ru.nsu.controllers;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,9 +18,9 @@ import ru.nsu.payload.request.TokenRefreshRequest;
 import ru.nsu.payload.response.JwtAuthResponse;
 import ru.nsu.payload.response.MessageResponse;
 import ru.nsu.payload.response.TokenRefreshResponse;
-import ru.nsu.services.AccountService;
 import ru.nsu.services.RefreshTokenService;
 import ru.nsu.services.UserDetailsImpl;
+import ru.nsu.services.interfaces.IAccountService;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -29,6 +29,7 @@ import java.time.Instant;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api")
 public class AuthController {
 
@@ -38,19 +39,7 @@ public class AuthController {
 
     private final RefreshTokenService refreshTokenService;
 
-    private final AccountService accountService;
-
-    @Autowired
-    public AuthController(
-            AccountService accountService,
-            AuthenticationManager authenticationManager,
-            RefreshTokenService refreshTokenService,
-            JwtUtils jwtUtils) {
-        this.authenticationManager = authenticationManager;
-        this.accountService = accountService;
-        this.jwtUtils = jwtUtils;
-        this.refreshTokenService = refreshTokenService;
-    }
+    private final IAccountService accountService;
 
     @PostMapping("/auth/refresh")
     @Transactional

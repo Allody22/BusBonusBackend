@@ -6,20 +6,24 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.model.operations.CodeOperationDirection;
 import ru.nsu.model.operations.OperationCodeNames;
 import ru.nsu.model.operations.OperationPincode;
 import ru.nsu.model.user.Account;
-import ru.nsu.payload.request.*;
+import ru.nsu.payload.request.LoginRequest;
+import ru.nsu.payload.request.PasswordConfirmRequest;
+import ru.nsu.payload.request.RegistrationRequest;
 import ru.nsu.payload.response.BusBonusIDResponse;
 import ru.nsu.payload.response.DataResponse;
 import ru.nsu.payload.response.MessageResponse;
-import ru.nsu.services.*;
+import ru.nsu.services.RefreshTokenService;
+import ru.nsu.services.interfaces.IAccountService;
+import ru.nsu.services.interfaces.IOperationAccountService;
+import ru.nsu.services.interfaces.IOperationCodeService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,28 +31,18 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/v1/auth/site")
 public class SiteV1Controller {
 
-    private final AccountService accountService;
+    private final IAccountService accountService;
 
     private final RefreshTokenService refreshTokenService;
 
-    private final OperationCodeService operationCodeService;
+    private final IOperationCodeService operationCodeService;
 
-    private final OperationAccountService operationAccountService;
+    private final IOperationAccountService operationAccountService;
 
-    @Autowired
-    public SiteV1Controller(
-            OperationAccountService operationAccountService,
-            RefreshTokenService refreshTokenService,
-            OperationCodeService operationCodeService,
-            AccountService accountService) {
-        this.operationCodeService = operationCodeService;
-        this.refreshTokenService = refreshTokenService;
-        this.operationAccountService = operationAccountService;
-        this.accountService = accountService;
-    }
 
     @PostMapping("/forgot")
     @Transactional
@@ -124,107 +118,6 @@ public class SiteV1Controller {
                 return ResponseEntity.ok(new DataResponse(true));
             } else {
                 return ResponseEntity.badRequest().body(new MessageResponse("Ошибка введённых данных. Внимательно проверьте их еще раз для телефона " + userPhone));
-            }
-        }
-    }
-
-    @Operation(
-            summary = "Смена телефона с использованием текущего jwt и доступом к аккаунту",
-            description = "Отправка запроса для получения пинкода на телефон для смены телефона.",
-            tags = {"phone", "post", "account"}
-    )
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Пинкод успешно отправлен на телефон пользователя", content = {@Content(schema = @Schema(implementation = DataResponse.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "400", description = "Ошибка в данных запроса или превышено количество попыток отправки пинкода", content = {@Content(schema = @Schema(implementation = MessageResponse.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера", content = {@Content(schema = @Schema(), mediaType = "application/json")})
-    })
-    @PostMapping("/change/phone")
-    @Transactional
-    //TODO непонятная логика
-    public ResponseEntity<?> changePhone(@Valid @RequestBody NewPhoneRequest newPhoneRequest) {
-        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account userAccount = accountService.getAccountById(userDetails.getId());
-        String userPhone = userAccount.getPhone();
-        String newPhone = newPhoneRequest.getNewPhone();
-
-        if (accountService.checkAccExistenceByPhone(newPhone)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Ошибка введённых данных. Внимательно проверьте их еще раз"));
-        }
-
-        List<OperationPincode> previousUserCodeOperations = operationCodeService.findAllByOperationNameDirectionAndDateAfterWithUserPhone(userPhone, 10, "Формирование пин-кода", "Смена телефона");
-        // Нельзя вызывать больше 3 смс в 10 минут
-        if (previousUserCodeOperations.size() >= 3) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Превышено количество смс для смены телефона в час."));
-        }
-
-        // 6 значный код из чисел только
-        String secretCode = accountService.generateRandomPassword();
-
-        System.out.println("NEW SECRET CODE FOR PHONE TO " + newPhone + " CHANGE FOR " + userPhone + ":" + secretCode);
-
-
-        CodeOperationDirection operationDirection = operationCodeService.findOperationDirection("Смена телефона");
-        OperationCodeNames operationCodeName = operationCodeService.findOperationName("Формирование пин-кода");
-        operationCodeService.saveNewPinCodeOperation(userPhone + " " + newPhone, secretCode, operationCodeName, operationDirection);
-
-        //Отправляем код подтверждения в СМС для пароля
-        return ResponseEntity.ok(new DataResponse(true));
-    }
-
-    @Operation(
-            summary = "Подтверждение смены телефона",
-            description = "Отправка запроса с новым телефоном и кодом подтверждения из смс на новый телефон. " +
-                    "Код ищется за последние 10 минут с проверкой на то, что это код именно для смены телефона",
-            tags = {"phone", "post", "confirm", "account"})
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Для пользователя установлен новый телефон, информация об этом записана в бд",
-                    content = {@Content(schema = @Schema(implementation = DataResponse.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "400", description = "Ошибка в данных запроса или превышено количество попыток ввода пинкода (больше 6 за последние 10 минут)", content = {@Content(schema = @Schema(implementation = MessageResponse.class), mediaType = "application/json")}),
-            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
-    @PostMapping("/change/phone/confirm")
-    @Transactional
-    public ResponseEntity<?> changePhoneConfirm(@Valid @RequestBody ChangePhoneRequest changePhoneRequest) {
-        //TODO сюда тоже жвт?
-        String userPhone = changePhoneRequest.getLogin();
-        String newPhone = changePhoneRequest.getNewPhone();
-        String userCode = changePhoneRequest.getCodeToken();
-
-        List<OperationPincode> previousUserCodeOperations = operationCodeService.findAllByOperationNameDirectionAndDateAfterWithUserPhone(userPhone, 10, "Пин-код не соответствует", "Смена телефона");
-
-        if (previousUserCodeOperations.size() >= 6) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Ошибка! Вы использовали слишком много попыток ввода кода за последние 10 минут"));
-        }
-
-        //Достаём последний пинкод за 10 минут
-        var latestCode = operationCodeService.findLastCodeByPhoneAndDateAfter(userPhone + " " + newPhone, 10, "Формирование пин-кода", "Смена телефона");
-        String confirmationCodeFromDB = latestCode.getPinCodeData();
-
-        if (!(userCode.equals(confirmationCodeFromDB))) {
-            //Сохраняем что пользователь ввёл неверный код
-            CodeOperationDirection operationDirection = operationCodeService.findOperationDirection("Смена телефона");
-            OperationCodeNames operationCodeName = operationCodeService.findOperationName("Пин-код не соответствует");
-            operationCodeService.saveNewPinCodeOperation(userPhone + " " + newPhone, userCode, operationCodeName, operationDirection);
-
-            //Код подтверждения не совпадает
-            return ResponseEntity.badRequest().body(new MessageResponse("Ошибка введённых данных. Внимательно проверьте их еще раз для телефона " + userPhone));
-        } else {
-            Account accountByPhone = accountService.getAccountByPhone(userPhone);
-            if (accountByPhone != null) {
-                accountService.updateAccountPhoneAndEmailByAccountId(accountByPhone.getId(), newPhone, null);
-
-                //В таблице операций личного кабинета пишем что чел ввёл правильный пинкод для смены телефона
-                CodeOperationDirection operationDirection = operationCodeService.findOperationDirection("Смена телефона");
-                OperationCodeNames operationCodeName = operationCodeService.findOperationName("Пин-код соответствует");
-                operationCodeService.saveNewPinCodeOperation(userPhone + " " + newPhone, userCode, operationCodeName, operationDirection);
-
-                // Удаляем все связанные с аккаунтом токены
-                refreshTokenService.deleteAllByAccountId(accountByPhone.getId());
-                operationAccountService.saveNewAccountOperation(accountByPhone, "Пользователь меняет номер телефона",
-                        "Пользователь подтвердил смену телефона с " + userPhone + " на " + newPhone);
-
-                return ResponseEntity.ok(new DataResponse(true));
-            } else {
-                return ResponseEntity.badRequest().body(new MessageResponse("Сначала отправьте запрос на получение пароля из смс"));
             }
         }
     }

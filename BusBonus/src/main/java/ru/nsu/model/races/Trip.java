@@ -3,7 +3,6 @@ package ru.nsu.model.races;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import ru.nsu.model.races.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;

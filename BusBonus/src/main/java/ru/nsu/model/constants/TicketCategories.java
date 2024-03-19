@@ -1,11 +1,10 @@
 package ru.nsu.model.constants;
 
-import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 
 
 @Entity
