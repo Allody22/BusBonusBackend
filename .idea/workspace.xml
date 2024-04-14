@@ -4,29 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="Большой переход от работы с несколькими билетами на работу с одним большим Order (заказом).">
+    <list default="true" id="1961d4b9-a39d-4d50-ab61-eb564ce604f0" name="Changes" comment="1) Делаем код красивее, пользуясь основными фишками спринга с автоматическим поиском зависимостей.&#10;2) Добавляем javadoc">
+      <change beforePath="$PROJECT_DIR$/.idea/BusBonus-git.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BusBonus-git.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/configuration/cache/Caching.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/configuration/cache/RedisConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthV1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/AuthV1Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/BusBonusController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/ConstantsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/ConstantsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/RaceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/RaceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/SiteV1Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/controllers/SiteV1Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/RefreshToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/RefreshToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/constants/TicketCategories.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/constants/TicketCategories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/operations/CodeOperationDirection.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/operations/CodeOperationDirection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/races/Trip.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/races/Trip.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/races/TripBBId.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/races/TripBBId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/model/user/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/payload/response/AccountTripsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/payload/response/AccountTripsResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/AccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/OperationAccountService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/OperationCodeService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/UserDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/UserDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/classes/db/migration/V3__insert_document_types.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/RefreshTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/BusBonus/src/main/java/ru/nsu/services/RefreshTokenService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,14 +25,26 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Allody22&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Allody22/BusBonusBackend.git&quot;,
+    &quot;accountId&quot;: &quot;2317f017-b19e-4a20-8a52-e407dd87f74f&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -97,10 +95,10 @@
       <recent name="C:\Users\Dom\Desktop\BusBonus-git\BusBonus\src\main\java\ru\nsu" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="ru.nsu.payload.response" />
       <recent name="ru.nsu.services.interfaces" />
       <recent name="ru.nsu.repository.race" />
       <recent name="ru.nsu.repository" />
-      <recent name="ru.nsu.payload.response" />
       <recent name="ru.nsu.payload.request" />
     </key>
   </component>
@@ -130,17 +128,6 @@
       <setting name="fixLineNumbers" value="false" />
       <setting name="focusEditor" value="false" />
       <method v="2" />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
     </configuration>
     <configuration name="Clean package" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
@@ -184,7 +171,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-18.0.2-corretto-18.0.2-f644763e9732-da6bd485" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -206,7 +194,9 @@
       <workItem from="1709125057957" duration="1243000" />
       <workItem from="1709721523839" duration="2644000" />
       <workItem from="1710751413243" duration="887000" />
-      <workItem from="1710818410672" duration="1738000" />
+      <workItem from="1710818410672" duration="2088000" />
+      <workItem from="1713092653065" duration="1186000" />
+      <workItem from="1713096845068" duration="1198000" />
     </task>
     <task id="LOCAL-00001" summary="Версия на начало января БЕЗ апи смс сервиса и апи почтовой рассылки">
       <option name="closed" value="true" />
@@ -264,7 +254,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710752288293</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1) Делаем код красивее, пользуясь основными фишками спринга с автоматическим поиском зависимостей.&#10;2) Добавляем javadoc">
+      <option name="closed" value="true" />
+      <created>1710820897156</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1710820897157</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +276,7 @@
     <MESSAGE value="1) Внешняя система может привязать к аккаунту один или несколько билетов по его busbonusId, привязываю к запросу всю необходимую информацию о поездке, документах, подробностях маршрута&#10;2) Человек может сам просматривать свои поездке в своём аккаунте по jwt" />
     <MESSAGE value="1) Удаление и сохранение кэша с помощью Redis и Spring аннотаций" />
     <MESSAGE value="Большой переход от работы с несколькими билетами на работу с одним большим Order (заказом)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Большой переход от работы с несколькими билетами на работу с одним большим Order (заказом)." />
+    <MESSAGE value="1) Делаем код красивее, пользуясь основными фишками спринга с автоматическим поиском зависимостей.&#10;2) Добавляем javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="1) Делаем код красивее, пользуясь основными фишками спринга с автоматическим поиском зависимостей.&#10;2) Добавляем javadoc" />
   </component>
 </project>

@@ -29,6 +29,9 @@ public class RefreshToken {
     @Column(nullable = false, unique = true)
     private String token;
 
+    @Column(nullable = false)
+    private String fingerPrint;
+
     @Column(nullable = false, name = "expiry_date")
     private Instant expiryDate;
 }

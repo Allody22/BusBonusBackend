@@ -1,7 +1,8 @@
-package ru.nsu.configuration.cache;
+package ru.etraffic.busbonus.configuration.cache;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,9 +12,12 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
-import ru.nsu.model.GDS.Race;
-import ru.nsu.model.GDS.RaceFullInfo;
-import ru.nsu.payload.response.AccountTripsResponse;
+import ru.etraffic.busbonus.configuration.cache.deserializer.RefreshTokenDeserializer;
+import ru.etraffic.busbonus.configuration.cache.serializer.RefreshTokenSerializer;
+import ru.etraffic.busbonus.model.GDS.Race;
+import ru.etraffic.busbonus.model.GDS.RaceFullInfo;
+import ru.etraffic.busbonus.model.RefreshToken;
+import ru.etraffic.busbonus.payload.response.AccountOrdersByStatusesResponse;
 
 import java.time.Duration;
 import java.util.List;
@@ -27,63 +31,80 @@ public class RedisConfig {
 
         GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
+        // Основной ObjectMapper для всех кеширований, кроме refreshToken
+        ObjectMapper generalObjectMapper = new ObjectMapper();
+        generalObjectMapper.registerModule(new JavaTimeModule());
+
+        // ObjectMapper для refreshToken с кастомными сериализатором и десериализатором
+        ObjectMapper refreshTokenObjectMapper = new ObjectMapper();
+        refreshTokenObjectMapper.registerModule(new JavaTimeModule());
+        refreshTokenObjectMapper.registerModule(new SimpleModule()
+                .addSerializer(RefreshToken.class, new RefreshTokenSerializer())
+                .addDeserializer(RefreshToken.class, new RefreshTokenDeserializer()));
 
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(4)); // Значение по умолчанию для времени жизни
+                .entryTtl(Duration.ofHours(1)); // Значение по умолчанию для времени жизни
 
         RedisCacheConfiguration regionsCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(24));
+                .entryTtl(Duration.ofHours(125)); //раз в 5 дней для регионов
 
         RedisCacheConfiguration depotsCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(24)); //раз в 1 день
+                .entryTtl(Duration.ofHours(24)); //раз в 1 день для автовокзалов
 
         RedisCacheConfiguration dispatchPointsCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(48)); //раз в 2 дня arrivalPointsCache
+                .entryTtl(Duration.ofHours(48)); //раз в 2 дня пункты отбытия
 
         RedisCacheConfiguration arrivalPointsCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(48)); //раз в 2 дня
+                .entryTtl(Duration.ofHours(48)); //раз в 2 дня arrivalPointsCache
 
 
-        JavaType javaTypeForRacesByPointAndDays = objectMapper.getTypeFactory().constructParametricType(List.class, Race.class);
+        JavaType javaTypeForRacesByPointAndDays = generalObjectMapper.getTypeFactory().constructParametricType(List.class, Race.class);
+
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializerForRacesByPointAndDays = new Jackson2JsonRedisSerializer<>(javaTypeForRacesByPointAndDays);
-        jackson2JsonRedisSerializerForRacesByPointAndDays.setObjectMapper(objectMapper);
+        jackson2JsonRedisSerializerForRacesByPointAndDays.setObjectMapper(generalObjectMapper);
 
         RedisCacheConfiguration racesByPointsAndDaysCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializerForRacesByPointAndDays))
                 .entryTtl(Duration.ofMinutes(30)); //раз в 30 минут
 
         Jackson2JsonRedisSerializer<RaceFullInfo> raceFullInfoSerializer = new Jackson2JsonRedisSerializer<>(RaceFullInfo.class);
-        raceFullInfoSerializer.setObjectMapper(objectMapper);
+        raceFullInfoSerializer.setObjectMapper(generalObjectMapper);
 
         RedisCacheConfiguration raceFullInfo = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(raceFullInfoSerializer))
                 .entryTtl(Duration.ofMinutes(30)); //раз в 30 минут
 
-        JavaType javaType = objectMapper.getTypeFactory().constructParametricType(List.class, AccountTripsResponse.class);
-        Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializerForUserTrips = new Jackson2JsonRedisSerializer<>(javaType);
-        jackson2JsonRedisSerializerForUserTrips.setObjectMapper(objectMapper);
+        Jackson2JsonRedisSerializer<AccountOrdersByStatusesResponse> jackson2JsonRedisSerializerForUserTrips = new Jackson2JsonRedisSerializer<>(AccountOrdersByStatusesResponse.class);
+        jackson2JsonRedisSerializerForUserTrips.setObjectMapper(generalObjectMapper);
 
         RedisCacheConfiguration userTripsConfig = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializerForUserTrips))
-                .entryTtl(Duration.ofMinutes(30)); // Установка времени жизни кэша
+                .entryTtl(Duration.ofMinutes(30)); // раз в 30 минут для поездок пользователя
+
+        Jackson2JsonRedisSerializer<RefreshToken> refreshTokenJackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer<>(RefreshToken.class);
+        refreshTokenJackson2JsonRedisSerializer.setObjectMapper(refreshTokenObjectMapper);
+
+        RedisCacheConfiguration refreshTokenCacheConfig = RedisCacheConfiguration.defaultCacheConfig()
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(refreshTokenJackson2JsonRedisSerializer)) // Используйте refreshTokenJackson2JsonRedisSerializer
+                .entryTtl(Duration.ofHours(144)); // раз в 6 дней для refreshToken
+
 
         // Возвращаем кэш-менеджера с кастомными настройками
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
-                .withCacheConfiguration("allRegionsInCountry", regionsCacheConfig)
-                .withCacheConfiguration("depotInfo", depotsCacheConfig)
-                .withCacheConfiguration("allDispatchPoint", dispatchPointsCacheConfig)
-                .withCacheConfiguration("allArrivalPoint", arrivalPointsCacheConfig)
-                .withCacheConfiguration("allRacesInADayFromPointToPoint", racesByPointsAndDaysCacheConfig)
-                .withCacheConfiguration("raceInfo", raceFullInfo)
-                .withCacheConfiguration("allAccountTrips", userTripsConfig)
+                .withCacheConfiguration("regionsCache", regionsCacheConfig)
+                .withCacheConfiguration("refreshTCache", refreshTokenCacheConfig)
+                .withCacheConfiguration("depotCache", depotsCacheConfig)
+                .withCacheConfiguration("dispatchPointsCache", dispatchPointsCacheConfig)
+                .withCacheConfiguration("arrivalPointsCache", arrivalPointsCacheConfig)
+                .withCacheConfiguration("racesByPointsAndDaysCache", racesByPointsAndDaysCacheConfig)
+                .withCacheConfiguration("raceFullInfo", raceFullInfo)
+                .withCacheConfiguration("userTrips", userTripsConfig)
                 .build();
     }
 }
