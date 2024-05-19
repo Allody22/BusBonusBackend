@@ -1,6 +1,7 @@
 package ru.nsu.controllers;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +14,24 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.configuration.security.jwt.JwtUtils;
 import ru.nsu.exceptions.FingerPrintException;
-import ru.nsu.exceptions.TokenRefreshException;
 import ru.nsu.model.RefreshToken;
-import ru.nsu.model.user.Account;
 import ru.nsu.payload.request.AuthRequest;
 import ru.nsu.payload.request.FingerPrintRequest;
-import ru.nsu.payload.request.TokenRefreshRequest;
-import ru.nsu.payload.response.*;
+import ru.nsu.payload.response.DataResponse;
+import ru.nsu.payload.response.JwtResponse;
+import ru.nsu.payload.response.MessageResponse;
 import ru.nsu.services.RefreshTokenService;
 import ru.nsu.services.UserDetailsImpl;
 import ru.nsu.services.interfaces.IAccountService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
-import java.time.Instant;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -43,15 +42,30 @@ public class AuthController {
 
     private final IAccountService accountService;
 
+    @Transactional
+    public ResponseEntity<?> closeAllSessionsForce(HttpServletRequest request) {
+        String refreshTokenFromCookies = refreshTokenService.getJwtRefreshFromCookies(request);
+        RefreshToken refreshToken = refreshTokenService.findByRefreshToken(refreshTokenFromCookies);
+
+        refreshTokenService.deleteAllRefreshTokenByAccountId(refreshToken.getAccount().getId());
+        ResponseCookie jwtRefreshCookie = refreshTokenService.deleteRefreshJwtCookie();
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
+                .body(new DataResponse(true));
+    }
 
     @PostMapping("/auth/logout")
     @Transactional
     public ResponseEntity<?> logout(HttpServletRequest request) {
-        String refreshToken = refreshTokenService.getJwtRefreshFromCookies(request);
-        RefreshToken token = refreshTokenService.findByRefreshToken(refreshToken);
-        refreshTokenService.deleteRefreshToken(token);
-
+        try {
+            // Пытаемся получить refresh token из cookies
+            refreshTokenService.processLogout(request);
+        } catch (Exception e) {
+            log.error("Error during logout: {}", e.getMessage());
+        }
         ResponseCookie jwtRefreshCookie = refreshTokenService.deleteRefreshJwtCookie();
+
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.SET_COOKIE, jwtRefreshCookie.toString())
