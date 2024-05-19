@@ -16,6 +16,7 @@ import ru.nsu.model.RefreshToken;
 import ru.nsu.model.user.Account;
 import ru.nsu.repository.RefreshTokenRepository;
 import ru.nsu.repository.user.AccountRepository;
+import ru.nsu.services.interfaces.IRefreshTokenService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class RefreshTokenService {
+public class RefreshTokenService implements IRefreshTokenService {
 
     @Value("${busbonus.app.jwtRefreshExpirationMs}")
     private Long refreshTokenDurationMs;
@@ -43,11 +44,20 @@ public class RefreshTokenService {
         this.accountRepository = accountRepository;
     }
 
-    public List<RefreshToken> findAllByAccountId(Long accountId){
+    public List<RefreshToken> findAllByAccountId(Long accountId) {
         return refreshTokenRepository.findAllByAccount_Id(accountId);
     }
 
-
+    @Transactional
+    public void processLogout(HttpServletRequest request) {
+        String refreshToken = getJwtRefreshFromCookies(request);
+        if (refreshToken != null) {
+            RefreshToken token = findByRefreshToken(refreshToken);
+            String fingerPrint = token.getFingerPrint();
+            Long accountId = token.getAccount().getId();
+            deleteAllRefreshTokenByFingerPrintAndAccountId(fingerPrint, accountId);
+        }
+    }
 
     public RefreshToken findByRefreshToken(String refreshToken) {
         return refreshTokenRepository.findByToken(refreshToken)

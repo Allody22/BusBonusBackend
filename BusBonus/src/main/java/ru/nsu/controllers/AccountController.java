@@ -97,7 +97,6 @@ public class AccountController {
     }
 
 
-
     @GetMapping("/get_account_jwt")
     @Transactional
     public ResponseEntity<?> getAccountByJWT() {
@@ -200,7 +199,6 @@ public class AccountController {
 
         return ResponseEntity.ok(new DataResponse(true));
     }
-
 
 
     @PostMapping("/delete_companion")

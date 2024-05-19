@@ -52,6 +52,7 @@ public class RaceController {
     public ResponseEntity<?> getDispatchPointsForRegion(@Valid @NotNull @PathVariable Long regionId) {
         return ResponseEntity.ok(raceService.getDispatchPointsForRegion(regionId));
     }
+
     @GetMapping("/arrival_points/{dispatchPointId}")
     @Transactional
     public ResponseEntity<?> getArrivalPoint(@Valid @NotNull @PathVariable Long dispatchPointId) {

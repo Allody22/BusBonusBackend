@@ -54,7 +54,7 @@ public interface IUserDataService {
      * @param issuingAuthority       организация, выдавшая документ.
      * @param expirationDate         дата конца действия документа.
      * @param confirmationOfBenefits документ, выдающий преимущество (студенческий).
-     * @param documentType тип документа, привязанный к попутчику.
+     * @param documentType           тип документа, привязанный к попутчику.
      * @return сообщение
      */
     String addCompanion(Account account, String gender, String firstName, Date birthDate,
@@ -67,13 +67,13 @@ public interface IUserDataService {
     /**
      * Удаляем попутчика по данным (UserData) из определённого аккаунта.
      *
-     * @param name имя попутчика.
-     * @param lastName фамилия попутчика.
-     * @param patronymic отчество попутчика.
-     * @param citizenship гражданство попутчика.
-     * @param documentType тип документа попутчика.
+     * @param name           имя попутчика.
+     * @param lastName       фамилия попутчика.
+     * @param patronymic     отчество попутчика.
+     * @param citizenship    гражданство попутчика.
+     * @param documentType   тип документа попутчика.
      * @param documentNumber номер документа попутчика.
-     * @param account аккаунт, из которого удаляется попутчик.
+     * @param account        аккаунт, из которого удаляется попутчик.
      * @param documentSeries серия документа попутчика.
      */
     void deleteCompanionsByDocumentsAndNameWithoutAccount(String name, String lastName, String patronymic,

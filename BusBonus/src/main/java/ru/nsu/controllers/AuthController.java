@@ -81,14 +81,14 @@ public class AuthController {
 
         if ((refreshToken != null) && (!refreshToken.isEmpty())) {
             RefreshToken foundedToken = refreshTokenService.findByTokenInCache(refreshToken);
-            if (!foundedToken.getFingerPrint().equals(newFingerPrint)){
-                throw new FingerPrintException(newFingerPrint,"Фингерпринты не совпадают");
+            if (!foundedToken.getFingerPrint().equals(newFingerPrint)) {
+                throw new FingerPrintException(newFingerPrint, "Фингерпринты не совпадают");
             }
             refreshTokenService.verifyExpiration(foundedToken);
 
             Long accountId = foundedToken.getAccount().getId();
             String accountPhone = foundedToken.getAccount().getPhone();
-            if (refreshTokenService.findAllByAccountId(accountId).size() >= 5){
+            if (refreshTokenService.findAllByAccountId(accountId).size() >= 5) {
                 return ResponseEntity.badRequest().body(new MessageResponse("Уже и так создано много сессий!"));
             }
 
@@ -127,7 +127,7 @@ public class AuthController {
 
             JwtResponse jwtResponse = jwtUtils.generateJwtToken(userDetails.getUsername());
 
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId(),authRequest.getFingerPrint());
+            RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId(), authRequest.getFingerPrint());
 
             ResponseCookie jwtRefreshCookie = refreshTokenService.generateRefreshJwtCookie(refreshToken.getToken());
 

@@ -17,10 +17,17 @@ public interface IRefreshTokenService {
     List<RefreshToken> findAllByAccountId(Long accountId);
 
     /**
+     * Метод для выхода из аккаунта транзакционного (когда человек передаёт правильные данные).
+     *
+     * @param request запрос с информацией о рефреш токене в хедерах.
+     */
+    void processLogout(HttpServletRequest request);
+
+    /**
      * Создание рефреш токена, привязанного к аккаунту пользователя с определённым фингерпринтом,
      * то есть по факту создание сессии пользователя в определённом браузере.
      *
-     * @param accountId айди аккаунта пользователя.
+     * @param accountId   айди аккаунта пользователя.
      * @param fingerPrint фингерпринт переданного браузера пользователя.
      * @return созданная сущность токена.
      */
@@ -56,7 +63,7 @@ public interface IRefreshTokenService {
      * то мы удаляем их всех.
      *
      * @param fingerPrint фингерпринт аккаунта.
-     * @param accountId айди аккаунта.
+     * @param accountId   айди аккаунта.
      * @return true в случае успешного удаления.
      */
     boolean deleteAllRefreshTokenByFingerPrintAndAccountId(String fingerPrint, Long accountId);
