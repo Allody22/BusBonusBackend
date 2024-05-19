@@ -18,6 +18,6 @@ public class AuthRequest {
     private final String password = null;
 
     @NotBlank
-    private final String fingerprint;
+    private final String fingerPrint;
 
 }

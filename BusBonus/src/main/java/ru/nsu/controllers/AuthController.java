@@ -1,11 +1,5 @@
 package ru.nsu.controllers;
 
-
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -18,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ru.nsu.configuration.security.jwt.JwtUtils;
+import ru.nsu.exceptions.FingerPrintException;
 import ru.nsu.exceptions.TokenRefreshException;
 import ru.nsu.model.RefreshToken;
 import ru.nsu.model.user.Account;
@@ -50,7 +45,7 @@ public class AuthController {
 
 
     @PostMapping("/auth/logout")
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public ResponseEntity<?> logout(HttpServletRequest request) {
         String refreshToken = refreshTokenService.getJwtRefreshFromCookies(request);
         RefreshToken token = refreshTokenService.findByRefreshToken(refreshToken);
@@ -65,7 +60,7 @@ public class AuthController {
 
 
     @PostMapping("/auth/refresh")
-    @org.springframework.transaction.annotation.Transactional
+    @Transactional
     public ResponseEntity<?> refreshTokenPost(HttpServletRequest request, @RequestBody @Valid FingerPrintRequest fingerPrintRequest) {
         String refreshToken = refreshTokenService.getJwtRefreshFromCookies(request);
         String newFingerPrint = fingerPrintRequest.getFingerPrint();
